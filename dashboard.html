@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Klyre - Documents</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  padding:40px;
+}
+
+h1{
+  margin-bottom:30px;
+  font-size:28px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#111;
+  padding:20px;
+  border-radius:12px;
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.card:hover{
+  background:#1a1a1a;
+}
+
+.card-title{
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.card-sub{
+  font-size:13px;
+  opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Mes documents</h1>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-title">Facture iPhone</div>
+    <div class="card-sub">12 Mars 2024</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Contrat assurance</div>
+    <div class="card-sub">Valide jusqu’en 2026</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Abonnement Netflix</div>
+    <div class="card-sub">Renouvellement mensuel</div>
+  </div>
+</div>
+
+</body>
+</html>
