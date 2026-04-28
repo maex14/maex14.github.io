@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klyre</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+          <path d="M4 6a2 2 0 012-2h3l2 2h7a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" fill="#fff" fill-opacity=".9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Klyre</div>
+        <div class="brand-sub">Fichiers Cloud</div>
+      </div>
+    </div>
+
+    <button class="add-btn" onclick="pulse(this)">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Ajouter des fichiers
+    </button>
+
+    <div class="nav-label">Navigation</div>
+    <ul class="nav-list">
+      <li class="nav-item active" onclick="setActive(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h3l2 2h7a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" stroke="currentColor" stroke-width="1.8"/></svg>
+        Mes fichiers
+      </li>
+      <li class="nav-item" onclick="setActive(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Récents
+      </li>
+      <li class="nav-item" onclick="setActive(this)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Dossier Corbeille
+      </li>
+    </ul>
+
+    <div class="storage-card">
+      <div class="storage-header">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 7c0-1.1.9-2 2-2h5l2 2h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" stroke="currentColor" stroke-width="1.8"/></svg>
+        Stockage <span style="color:#6a6a7a;font-weight:400;">(52 % plein)</span>
+      </div>
+      <div class="storage-bar-bg">
+        <div class="storage-bar-fill" id="storageBar"></div>
+      </div>
+      <div class="storage-meta"><strong>520 MB</strong> de 1 Go utilisés</div>
+      <a class="upgrade-link" href="#">↑ S'abonner</a>
+    </div>
+
+    <div class="qr-card">
+      <div class="qr-box">
+        <svg class="qr-svg" width="34" height="34" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="3" height="3" fill="#1a1a1f" rx="0.3"/>
+          <rect x="1" y="1" width="1" height="1" fill="white"/>
+          <rect x="4" y="0" width="3" height="3" fill="#1a1a1f" rx="0.3"/>
+          <rect x="5" y="1" width="1" height="1" fill="white"/>
+          <rect x="0" y="4" width="3" height="3" fill="#1a1a1f" rx="0.3"/>
+          <rect x="1" y="5" width="1" height="1" fill="white"/>
+          <rect x="4" y="3" width="1" height="1" fill="#1a1a1f"/>
+          <rect x="5" y="4" width="1" height="1" fill="#1a1a1f"/>
+          <rect x="6" y="3" width="1" height="1" fill="#1a1a1f"/>
+          <rect x="4" y="5" width="2" height="1" fill="#1a1a1f"/>
+          <rect x="6" y="5" width="1" height="2" fill="#1a1a1f"/>
+          <rect x="4" y="6" width="1" height="1" fill="#1a1a1f"/>
+        </svg>
+      </div>
+      <div class="qr-text">
+        <strong>Téléchargez l'application</strong>
+        Scanner pour accéder à Klyre sur mobile
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <input class="search-input" type="text" placeholder="Rechercher par nom…" />
+      </div>
+
+      <button class="pro-badge">✦ Klyre +</button>
+
+      <div class="topbar-meta">
+        <button class="lang-btn">
+          🌐 Français
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="user-chip">
+          <div class="avatar">MG</div>
+          <span class="user-email">lulu52@gmail.com</span>
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="content-header">
+        <h1 class="page-title">Mes fichiers</h1>
+        <div class="header-actions">
+          <button class="icon-btn" title="Filtrer">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M3 6h18M7 12h10M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <button class="icon-btn" title="Trier">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- TOOLBAR WRAPPER: swaps between toolbar and action-bar on selection -->
+      <div class="toolbar-wrapper">
+        <div class="toolbar" id="mainToolbar">
+          <button class="toolbar-btn" id="converterBtn">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm4 4h8m-8 4h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Convertisseur
+          </button>
+          <button class="toolbar-btn">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Créer un dossier
+          </button>
+        </div>
+
+        <!-- ACTION BAR (appears on selection, replaces toolbar) -->
+        <div class="action-bar" id="actionBar">
+          <button class="action-btn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M4 12v6a2 2 0 002 2h12a2 2 0 002-2v-6M12 3v13M8 7l4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Partager le dossier
+          </button>
+          <button class="action-btn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.8"/></svg>
+            Copier
+          </button>
+          <button class="action-btn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M12 3v12M7 8l5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Compresser
+          </button>
+          <button class="action-btn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Déplacer
+          </button>
+          <button class="action-btn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Renommer
+          </button>
+          <button class="action-btn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Verrouiller
+          </button>
+          <button class="action-btn danger">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Supprimer
+          </button>
+        </div>
+      </div>
+
+      <table class="file-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="custom-checkbox" /></th>
+            <th><button class="sort-btn">Nom ↑</button></th>
+            <th>Type</th>
+            <th>Date de création</th>
+            <th>Taille</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="checkbox-wrap"><input type="checkbox" class="custom-checkbox" /></td>
+            <td>
+              <div class="file-info">
+                <div class="file-icon folder-safe">
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#8080a0" stroke-width="1.8"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#8080a0" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                  <span class="file-name">Safe</span>
+                  <span class="file-sub">Coffre-fort</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="type-pill">Dossier</span></td>
+            <td class="date-cell">22/04/2026</td>
+            <td class="size-cell">—</td>
+            <td><button class="more-btn">···</button></td>
+          </tr>
+          <tr>
+            <td class="checkbox-wrap"><input type="checkbox" class="custom-checkbox" /></td>
+            <td>
+              <div class="file-info">
+                <div class="file-icon folder-blue">
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h3l2 2h7a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" stroke="rgba(255,255,255,0.9)" stroke-width="1.8"/></svg>
+                </div>
+                <div>
+                  <span class="file-name">Documents</span>
+                  <span class="file-sub">Éléments : 22</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="type-pill">Dossier</span></td>
+            <td class="date-cell">30/09/2024</td>
+            <td class="size-cell">100.6 MB</td>
+            <td><button class="more-btn">···</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="footer-links">
+      <a class="footer-link" href="#">Conditions d'utilisation</a>
+      <a class="footer-link" href="#">Politique de confidentialité</a>
+    </footer>
+  </div>
+</div>
+<script src="script.js"></script>
+
+<!-- CONVERTER MODAL -->
+<div class="modal-overlay" id="converterModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 style="font-family:'Plein',sans-serif;font-weight:900;font-size:20px;margin-bottom:20px;letter-spacing:-0.3px;">Convertisseur</h2>
+    <div class="converter-grid">
+      <!-- PDF -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2l10 10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/></svg>
+          <span class="conv-badge" style="background:#e53935;">PDF</span>
+        </div>
+        <div class="conv-title">PDF en…</div>
+        <div class="conv-desc">Convertir PDF vers d'autres formats.</div>
+      </div>
+      <!-- JPG -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><circle cx="14" cy="22" r="5" stroke="#d0d0cc" stroke-width="1.2"/></svg>
+          <span class="conv-badge" style="background:#1e88e5;">JPG</span>
+        </div>
+        <div class="conv-title">JPG en…</div>
+        <div class="conv-desc">Convertir JPG vers d'autres formats.</div>
+      </div>
+      <!-- PNG -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><rect x="9" y="18" width="14" height="10" rx="2" stroke="#d0d0cc" stroke-width="1.2"/></svg>
+          <span class="conv-badge" style="background:#546e7a;">PNG</span>
+        </div>
+        <div class="conv-title">PNG en…</div>
+        <div class="conv-desc">Convertir PNG vers d'autres formats.</div>
+      </div>
+      <!-- DOC -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><path d="M9 20h14M9 25h10" stroke="#d0d0cc" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="conv-badge" style="background:#1565c0;">DOC</span>
+        </div>
+        <div class="conv-title">DOC en…</div>
+        <div class="conv-desc">Convertir DOC vers d'autres formats.</div>
+      </div>
+      <!-- XLS -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><rect x="9" y="17" width="14" height="12" rx="1" stroke="#d0d0cc" stroke-width="1.2"/><path d="M16 17v12M9 23h14" stroke="#d0d0cc" stroke-width="1"/></svg>
+          <span class="conv-badge" style="background:#2e7d32;">XLS</span>
+        </div>
+        <div class="conv-title">XLS en…</div>
+        <div class="conv-desc">Convertir XLS vers d'autres formats.</div>
+      </div>
+      <!-- PPT -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><rect x="9" y="18" width="14" height="9" rx="2" stroke="#d0d0cc" stroke-width="1.2"/></svg>
+          <span class="conv-badge" style="background:#e53935;">PPT</span>
+        </div>
+        <div class="conv-title">PPT en…</div>
+        <div class="conv-desc">Convertir PPT vers d'autres formats.</div>
+      </div>
+      <!-- HEIC -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><circle cx="14" cy="22" r="4" stroke="#d0d0cc" stroke-width="1.2"/></svg>
+          <span class="conv-badge" style="background:#00acc1;">HEIC</span>
+        </div>
+        <div class="conv-title">HEIC en…</div>
+        <div class="conv-desc">Convertir HEIC vers d'autres formats.</div>
+      </div>
+      <!-- TXT -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><path d="M9 18h14M9 23h12M9 28h8" stroke="#d0d0cc" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="conv-badge" style="background:#757575;">TXT</span>
+        </div>
+        <div class="conv-title">TXT en…</div>
+        <div class="conv-desc">Convertir TXT vers d'autres formats.</div>
+      </div>
+      <!-- RTF -->
+      <div class="converter-card">
+        <div class="conv-icon">
+          <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><rect x="2" y="2" width="28" height="36" rx="4" fill="#f0f0ed" stroke="#d0d0cc" stroke-width="1.5"/><path d="M22 2v10h10" fill="none" stroke="#d0d0cc" stroke-width="1.5"/><path d="M9 18h14M9 23h10M9 28h6" stroke="#d0d0cc" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="conv-badge" style="background:#1a237e;">RTF</span>
+        </div>
+        <div class="conv-title">RTF en PDF</div>
+        <div class="conv-desc">Convertissez les fichiers RTF en PDF.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
