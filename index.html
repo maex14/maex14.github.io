@@ -247,11 +247,13 @@
     /* Input */
     .inp-wrap {
       display: flex; align-items: center;
-      background: var(--bg); border: 2px solid var(--border); border-radius: 12px;
+      background: var(--bg); border: 2px dashed #c4b8ff; border-radius: 12px;
       padding: 4px 4px 4px 15px; transition: border-color .18s, background .18s;
+      cursor: pointer;
     }
-    .inp-wrap:focus-within { border-color: var(--accent); background: #fff; }
-    .inp-wrap.ok { border-color: #4dd9a0; background: #f0fdf8; animation: okPulse .4s ease; }
+    .inp-wrap:hover { background: var(--accent-light); border-color: var(--accent); }
+    .inp-wrap:hover .code-inp { color: var(--accent); }
+    .inp-wrap.ok { border-style: solid; border-color: #4dd9a0; background: #f0fdf8; animation: okPulse .4s ease; }
 
     @keyframes okPulse {
       0%   { box-shadow: 0 0 0 0 rgba(77,217,160,0.4); }
@@ -480,30 +482,12 @@
 
       <!-- CODE PANEL -->
       <div class="panel" id="pCode">
-        <span class="sec-lbl">Code d'accès suggéré — cliquez pour pré-remplir</span>
+        <span class="sec-lbl">Cliquez sur le champ pour entrer votre code d'accès</span>
 
-        <div class="sug" id="sugCard" onclick="prefill()">
-          <div class="sug-inner">
-            <span class="sug-eye">
-              <svg width="10" height="10" fill="#7c6eff" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              Code suggéré
-            </span>
-            <span class="sug-code">456 · KLYRE · 234</span>
-            <span class="sug-hint">Cliquez pour pré-remplir automatiquement</span>
-          </div>
-          <div class="sug-arr">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="divider">ou saisir manuellement</div>
-
-        <div class="inp-wrap" id="inpWrap">
-          <input class="code-inp" id="ci" type="text" placeholder="Ex : 456 · KLYRE · 234"
-            maxlength="20" autocomplete="off" spellcheck="false" oninput="onType()"/>
-          <button class="x-btn" onclick="clear_()">✕</button>
+        <!-- Zone cliquable : remplit le code automatiquement au clic -->
+        <div class="inp-wrap" id="inpWrap" onclick="autoFill()">
+          <input class="code-inp" id="ci" type="text" placeholder="Cliquez ici pour entrer le code…"
+            maxlength="20" autocomplete="off" spellcheck="false" readonly/>
         </div>
 
         <button class="conn-btn" id="connBtn" disabled onclick="go()">
@@ -539,44 +523,35 @@
     document.getElementById('p'+key).classList.add('on');
   }
 
-  function norm(v) { return v.replace(/[\s·\-\.]/g,'').toUpperCase(); }
-  function valid(v) { return norm(v) === '456KLYRE234'; }
+  function autoFill() {
+    const inp = document.getElementById('ci');
+    if (inp.value) return; // déjà rempli
 
-  function onType() {
-    document.getElementById('connBtn').disabled = !valid(document.getElementById('ci').value);
-    if (!document.getElementById('ci').value) resetSug();
-  }
-
-  function prefill() {
-    document.getElementById('ci').value = '456 · KLYRE · 234';
-    const w = document.getElementById('inpWrap');
-    w.classList.add('ok');
-    setTimeout(() => w.classList.remove('ok'), 700);
-    const s = document.getElementById('sugCard');
-    s.style.opacity = '0.4';
-    s.style.pointerEvents = 'none';
-    document.getElementById('connBtn').disabled = false;
-    document.getElementById('ci').focus();
-  }
-
-  function clear_() {
-    document.getElementById('ci').value = '';
-    document.getElementById('connBtn').disabled = true;
-    document.getElementById('inpWrap').classList.remove('ok');
-    resetSug();
-  }
-
-  function resetSug() {
-    const s = document.getElementById('sugCard');
-    s.style.opacity = '1';
-    s.style.pointerEvents = 'all';
+    // Tape le code lettre par lettre pour l'effet
+    const code = '456 · KLYRE · 234';
+    let i = 0;
+    inp.value = '';
+    const interval = setInterval(() => {
+      inp.value += code[i];
+      i++;
+      if (i >= code.length) {
+        clearInterval(interval);
+        // Flash vert + active le bouton
+        const w = document.getElementById('inpWrap');
+        w.classList.add('ok');
+        w.style.cursor = 'default';
+        w.style.borderStyle = 'solid';
+        document.getElementById('connBtn').disabled = false;
+      }
+    }, 45);
   }
 
   function go() {
     const b = document.getElementById('connBtn');
-    b.innerHTML = '<span class="spin">⏳</span> Connexion…';
+    b.innerHTML = '<span style="display:inline-block;animation:spin .8s linear infinite">⏳</span> Connexion…';
     b.disabled = true;
-    setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+    // Redirige vers l'interface principale
+    setTimeout(() => { window.location.href = 'index.html'; }, 1100);
   }
 
   document.addEventListener('keydown', e => {
